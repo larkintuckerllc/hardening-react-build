@@ -5,6 +5,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const FlowStatusWebpackPlugin = require('flow-status-webpack-plugin');
 
 module.exports = env => ({
   resolve: {
@@ -32,10 +33,6 @@ module.exports = env => ({
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
-        options: {
-          presets: ['es2015', 'react'],
-          plugins: ['syntax-dynamic-import'],
-        },
       },
       {
         test: /\.(scss|css)$/,
@@ -99,5 +96,8 @@ module.exports = env => ({
       minChunks: Infinity,
     }),
     new BundleAnalyzerPlugin(),
+    new FlowStatusWebpackPlugin({
+      failOnError: true,
+    }),
   ],
 });
